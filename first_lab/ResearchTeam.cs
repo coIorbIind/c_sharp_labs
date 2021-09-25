@@ -254,5 +254,9 @@ namespace first_lab
             return new ResearchTeamEnumerator(People);
         }
 
+        public void Proverks()
+        {
+
+        }
     }
 }
