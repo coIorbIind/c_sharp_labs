@@ -256,7 +256,7 @@ namespace first_lab
 
         public void Proverks()
         {
-
+            //kjkjkjl
         }
     }
 }
