@@ -201,6 +201,7 @@ namespace first_lab
             res2.AddMembers(people);
             res2.Number = 500;
             res2.Theme = "Машинное обучение";
+            res2.Time = TimeFrame.TwoYears;
 
             //Создание ResearchTeamCollection
             ResearchTeamCollection collection = new ResearchTeamCollection();
@@ -223,11 +224,42 @@ namespace first_lab
 
             //Сортировка по количеству публикаций
 
-            res.AddPapers(new Paper("Анализ данных", new Person("Иван", "Пупкин", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)));
-            Console.WriteLine(collection.ToString());
-            Console.WriteLine("--------------------------После сортировки---------------------------------");
-            collection.SortByPublications();
-            Console.WriteLine(collection.ToString());
+            //res.AddPapers(new Paper("Анализ данных", new Person("Иван", "Пупкин", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)));
+            //Console.WriteLine(collection.ToString());
+            //Console.WriteLine("--------------------------После сортировки---------------------------------");
+            //collection.SortByPublications();
+            //Console.WriteLine(collection.ToString());
+
+            //Вывод минимального номера регистрации
+
+            //Console.WriteLine(collection.MinNumber);
+
+            //Вывод исследовательский групп с продолжительностью исследований два года
+
+            //foreach (ResearchTeam item in collection.researchTeams)
+            //{
+            //    Console.WriteLine(item.ToShortString());
+            //}
+
+            //Вывод исследовательский групп с заданным количество участников
+            //foreach (ResearchTeam item in collection.CountPeople(3)
+            //{
+            //        Console.WriteLine(item.ToShortString());
+            //}
+
+            //Группировка по числу публикаций
+
+            //foreach (IGrouping<int, ResearchTeam> item in collection.NGroup())
+            //{
+            //    Console.WriteLine($"Количество публикаций в данной группе равно {item.Key}");
+            //    Console.WriteLine("-------------------------------------------------------");
+            //    foreach (ResearchTeam j in item)
+            //    {
+            //        Console.WriteLine(j.ToShortString());
+            //    }
+
+            //}
+
         }
     }
 }
