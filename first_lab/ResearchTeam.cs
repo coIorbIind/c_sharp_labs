@@ -3,12 +3,13 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 
 namespace first_lab
 {
     enum TimeFrame { Year, TwoYears, Long };
 
-    class ResearchTeam : Team, INameAndCopy, IEnumerable
+    class ResearchTeam : Team, INameAndCopy, IEnumerable,IComparer<ResearchTeam>
     {
         string theme;
         TimeFrame time;
@@ -254,5 +255,9 @@ namespace first_lab
             return new ResearchTeamEnumerator(People);
         }
 
+        public int Compare(ResearchTeam x, ResearchTeam y)
+        {
+            return string.Compare(x.Theme, y.Theme);
+        }
     }
 }

@@ -184,89 +184,50 @@ namespace first_lab
 
         static void Main(string[] args)
         {
-            //Сравнение элементов
-
-            //Team t1 = new Team("МИЭТ", 123);
-            //Team t2 = new Team("МИЭТ", 123);
-
-            //Console.WriteLine((object)t1 == (object)t2);
-            //Console.WriteLine(t1.Equals(t2));
-            //Console.WriteLine(t1.GetHashCode());
-            //Console.WriteLine(t2.GetHashCode());
-
-            // Обработка некорректного регистрационного номер
-
-            //Team t = new Team();
-            //try
-            //{
-            //    t.Number = -3;
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-
-            //}
-
             ResearchTeam res = new ResearchTeam();
-
-            // Добавление участников и публикаций
-            //Paper[] papers = { new Paper("Механика", new Person("Иван", "Иванов", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)), new Paper("Термодинамика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)) };
-            //res.AddPapers(papers);
-            //Person[] people = { new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new Person("Сидоров", "Степан", new DateTime(1980, 04, 15)), new Person("Михайлов", "Михаил", new DateTime(1990, 12, 13)) };
-            //res.AddMembers(people);
-            //Console.WriteLine(res);
-
-
-            // Вывод значение Team
-            //Console.WriteLine(res.OurTeam);
-
-
-            // Проверка DeepCopy()
-            //ResearchTeam res2 = (ResearchTeam) res.DeepCopy();
-            //Console.WriteLine("Данные до изменения\n");
-            //Console.WriteLine(res);
-            //Console.WriteLine(res2);
-            //res.Number = 123;
-            //Console.WriteLine("Данные после изменения\n");
-            //Console.WriteLine(res);
-            //Console.WriteLine(res2);
-
-
-            //Итератор участников
-            //Paper[] papers = { new Paper("Механика", new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new DateTime(2015, 08, 22)), new Paper("Термодинамика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)), new Paper("Оптика", new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new DateTime(2020, 08, 22)) };
-            //res.AddPapers(papers);
-            //Person[] people = { new Person("Сидоров", "Степан", new DateTime(1980, 04, 15)), new Person("Михайлов", "Михаил", new DateTime(1990, 12, 13)), new Person("Иван", "Иванов", new DateTime(1970, 03, 13)) };
-            //res.AddMembers(people);
-            //foreach (Person item in res.GetPeopleWithoutPublications())
-            //{
-            //    Console.WriteLine(item);
-            //}
-            //Console.WriteLine("\n");
-            //foreach (Person item in res.GetPeopleWithPublications())
-            //{
-            //    Console.WriteLine(item);
-            //}
-            //Console.WriteLine("\n");
-            //foreach (Person item in res.GetPeopleWithManyPublications())
-            //{
-            //    Console.WriteLine(item);
-            //}
-
-
-            //Итератор публикаций за последние n лет
-            Paper[] papers = { new Paper("Механика", new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new DateTime(2015, 08, 22)), new Paper("Термодинамика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)), new Paper("Оптика", new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new DateTime(2020, 08, 22)) };
+            res.Number = 400;
+            //Добавление участников и публикаций
+            Paper[] papers = { new Paper("Механика", new Person("Иван", "Иванов", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)), new Paper("Термодинамика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)) };
             res.AddPapers(papers);
-            Console.WriteLine("Введите число, указывающие на то, за сколько последних лет нужно вывести публикации");
-            int n = Int32.Parse(Console.ReadLine());
-            foreach (Paper item in res.GetPublications(n))
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine("\n");
-            foreach (Paper item in res.GetLatestPublications())
-            {
-                Console.WriteLine(item);
-            }
+            Person[] people = { new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new Person("Сидоров", "Степан", new DateTime(1980, 04, 15)), new Person("Михайлов", "Михаил", new DateTime(1990, 12, 13)) };
+            res.AddMembers(people);
+
+            ResearchTeam res2 = new ResearchTeam();
+
+            //Добавление участников и публикаций
+            Paper[] papers_2 = { new Paper("Информатика", new Person("Иван", "Иванов", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)), new Paper("Физика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)) };
+            res2.AddPapers(papers);
+            Person[] people_2 = { new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new Person("Сидоров", "Степан", new DateTime(1980, 04, 15)), new Person("Михайлов", "Михаил", new DateTime(1990, 12, 13)) };
+            res2.AddMembers(people);
+            res2.Number = 500;
+            res2.Theme = "Машинное обучение";
+
+            //Создание ResearchTeamCollection
+            ResearchTeamCollection collection = new ResearchTeamCollection();
+            collection.AddDefaults(res);
+            collection.AddResearchTeams(res2);
+
+            //Сортировка по номеру регистрации
+
+            //Console.WriteLine(collection.ToShortString());
+            //Console.WriteLine("--------------------------После сортировки---------------------------------");
+            //collection.SortByTeam();
+            //Console.WriteLine(collection.ToShortString());
+
+            //Сортировка по теме исследований
+
+            //Console.WriteLine(collection.ToShortString());
+            //Console.WriteLine("--------------------------После сортировки---------------------------------");
+            //collection.SortByTheme();
+            //Console.WriteLine(collection.ToShortString());
+
+            //Сортировка по количеству публикаций
+
+            res.AddPapers(new Paper("Анализ данных", new Person("Иван", "Пупкин", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)));
+            Console.WriteLine(collection.ToString());
+            Console.WriteLine("--------------------------После сортировки---------------------------------");
+            collection.SortByPublications();
+            Console.WriteLine(collection.ToString());
         }
     }
 }

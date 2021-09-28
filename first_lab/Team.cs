@@ -4,7 +4,7 @@ using System.Text;
 
 namespace first_lab
 {
-    class Team : INameAndCopy
+    class Team : INameAndCopy, IComparable
     {
         protected string organization;
         protected int number;
@@ -101,5 +101,9 @@ namespace first_lab
             return $"Название организации: {Organization}. Номер организации: {Number}";
         } // перегруженный метод string ToString()
 
+        public int CompareTo(object obj)
+        {
+            return Number - ((Team)obj).Number ;
+        }
     }
 }
