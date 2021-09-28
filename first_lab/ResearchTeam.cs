@@ -12,15 +12,15 @@ namespace first_lab
     {
         string theme;
         TimeFrame time;
-        ArrayList people;
-        ArrayList publications;
+        List<Person> people;
+        List<Paper> publications;
 
         public ResearchTeam(string theme_value, string organization_value, int number_value, TimeFrame time_value):base(organization_value, number_value) /// конструктор с параметрами
         {
             theme = theme_value;
             time = time_value;
-            publications = new ArrayList();
-            people = new ArrayList();
+            publications = new List<Paper>();
+            people = new List<Person>();
         } // конструктор с параметрами
 
         public ResearchTeam() : this("Раскопки", "МИЭТ", 111, TimeFrame.Long) /// конструктор без параметров
@@ -32,11 +32,11 @@ namespace first_lab
             ResearchTeam other = new ResearchTeam(Theme, Organization, Number, Time);
             foreach (Paper item in this.Publications)
             {
-                other.Publications.Add(item.DeepCopy());
+                other.Publications.Add((Paper)item.DeepCopy());
             }
             foreach (Person item in this.People)
             {
-                other.People.Add(item.DeepCopy());
+                other.People.Add((Person)item.DeepCopy());
             }
             return other;
         } // копия объекта класса ResearchTeam
@@ -67,7 +67,7 @@ namespace first_lab
             }
         } //свойство дата начала исследований
 
-        public ArrayList Publications
+        public List<Paper> Publications
         {
             get
             {
@@ -76,11 +76,11 @@ namespace first_lab
 
             set
             {
-                publications = new ArrayList(value);
+                publications = new List<Paper>(value);
             }
         } // свойство публикации
 
-        public ArrayList People
+        public List<Person> People
         {
             get
             {
@@ -89,7 +89,7 @@ namespace first_lab
 
             set
             {
-                people = new ArrayList(value);
+                people = new List<Person>(value);
             }
         } // свойство участники
 
@@ -254,9 +254,5 @@ namespace first_lab
             return new ResearchTeamEnumerator(People);
         }
 
-        public void Proverks()
-        {
-            //kjkjkjl
-        }
     }
 }

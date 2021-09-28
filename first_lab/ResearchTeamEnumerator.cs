@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 
 namespace first_lab
 {
     class ResearchTeamEnumerator : IEnumerator
     {
-        ArrayList members;
+        List<Person> members;
         int position = -1;
 
-        public ResearchTeamEnumerator(ArrayList members_value)
+        public ResearchTeamEnumerator(List<Person> members_value)
         {
             this.members = members_value;
         }
         public ResearchTeamEnumerator()
         {
-            this.members = new ArrayList();
+            this.members = new List<Person>();
         }
 
         public object Current
