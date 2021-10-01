@@ -184,29 +184,29 @@ namespace first_lab
 
         static void Main(string[] args)
         {
-            ResearchTeam res = new ResearchTeam();
-            res.Number = 400;
-            //Добавление участников и публикаций
-            Paper[] papers = { new Paper("Механика", new Person("Иван", "Иванов", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)), new Paper("Термодинамика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)) };
-            res.AddPapers(papers);
-            Person[] people = { new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new Person("Сидоров", "Степан", new DateTime(1980, 04, 15)), new Person("Михайлов", "Михаил", new DateTime(1990, 12, 13)) };
-            res.AddMembers(people);
+            //ResearchTeam res = new ResearchTeam();
+            //res.Number = 400;
+            ////Добавление участников и публикаций
+            //Paper[] papers = { new Paper("Механика", new Person("Иван", "Иванов", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)), new Paper("Термодинамика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)) };
+            //res.AddPapers(papers);
+            //Person[] people = { new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new Person("Сидоров", "Степан", new DateTime(1980, 04, 15)), new Person("Михайлов", "Михаил", new DateTime(1990, 12, 13)) };
+            //res.AddMembers(people);
 
-            ResearchTeam res2 = new ResearchTeam();
+            //ResearchTeam res2 = new ResearchTeam();
 
-            //Добавление участников и публикаций
-            Paper[] papers_2 = { new Paper("Информатика", new Person("Иван", "Иванов", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)), new Paper("Физика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)) };
-            res2.AddPapers(papers);
-            Person[] people_2 = { new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new Person("Сидоров", "Степан", new DateTime(1980, 04, 15)), new Person("Михайлов", "Михаил", new DateTime(1990, 12, 13)) };
-            res2.AddMembers(people);
-            res2.Number = 500;
-            res2.Theme = "Машинное обучение";
-            res2.Time = TimeFrame.TwoYears;
+            ////Добавление участников и публикаций
+            //Paper[] papers_2 = { new Paper("Информатика", new Person("Иван", "Иванов", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)), new Paper("Физика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)) };
+            //res2.AddPapers(papers);
+            //Person[] people_2 = { new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new Person("Сидоров", "Степан", new DateTime(1980, 04, 15)), new Person("Михайлов", "Михаил", new DateTime(1990, 12, 13)) };
+            //res2.AddMembers(people);
+            //res2.Number = 500;
+            //res2.Theme = "Машинное обучение";
+            //res2.Time = TimeFrame.TwoYears;
 
-            //Создание ResearchTeamCollection
-            ResearchTeamCollection collection = new ResearchTeamCollection();
-            collection.AddDefaults(res);
-            collection.AddResearchTeams(res2);
+            ////Создание ResearchTeamCollection
+            //ResearchTeamCollection collection = new ResearchTeamCollection();
+            //collection.AddDefaults(res);
+            //collection.AddResearchTeams(res2);
 
             //Сортировка по номеру регистрации
 
@@ -260,6 +260,25 @@ namespace first_lab
 
             //}
 
+            int n;
+            Console.WriteLine("Введите количество элементов");
+            while (true)
+            {
+                bool flag = int.TryParse(Console.ReadLine(), out n);
+                if (!flag || n < 1)
+                {
+                    Console.WriteLine("Некорректный ввод, попробуйте снова");
+                }
+                else
+                    break;
+            }
+
+            TestCollections test = new TestCollections(1000);
+            test.TestLists();
+            Console.WriteLine();
+            test.TestDictsKeys();
+            Console.WriteLine();
+            test.TestDictsValues();
         }
     }
 }
