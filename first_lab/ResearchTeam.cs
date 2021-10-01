@@ -28,7 +28,7 @@ namespace first_lab
         {
         } // конструктор по умолчанию
 
-        public override object DeepCopy()
+        public object DeepCopy()
         {
             ResearchTeam other = new ResearchTeam(Theme, Organization, Number, Time);
             foreach (Paper item in this.Publications)
@@ -108,25 +108,16 @@ namespace first_lab
             }
         } // свойство взаимодействия с организацией и ее номером через объект базового класса
 
-        public Paper latest //получение последней публикации
+        public DateTime latest //получение последней публикации
         {
             get
             {
                 if (Publications.Count > 0)
                 {
-                    Paper latest = new Paper();
-                    latest.Date = new DateTime(1, 1, 1);
-                    foreach (Paper item in Publications)
-                    {
-                        if (item.Date > latest.Date)
-                        {
-                            latest = item;
-                        }
-                    }
-                    return latest;
+                    return Publications.Max(x => x.Date);
                 }
 
-                return null;
+                return new DateTime();
             }
 
 
@@ -258,6 +249,21 @@ namespace first_lab
         public int Compare(ResearchTeam x, ResearchTeam y)
         {
             return string.Compare(x.Theme, y.Theme);
+        }
+
+        public void SortByDate()
+        {
+            publications.Sort((a, b) => a.CompareTo(b));
+        }
+
+        public void SortByName()
+        {
+            publications.Sort((a, b) => a.Compare(a, b));
+        }
+
+        public void SortByAuthor()
+        {
+            publications.Sort(new PaperComparer());
         }
     }
 }
