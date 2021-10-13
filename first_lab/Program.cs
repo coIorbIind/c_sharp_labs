@@ -7,16 +7,23 @@ namespace first_lab
     
     class Program
     {
-
+        public enum Enum2: byte
+        {
+            A,
+            B,
+            C,
+            D
+        }
         static void Main(string[] args)
         {
-            ResearchTeam res = new ResearchTeam();
-            res.Number = 400;
-            //Добавление участников и публикаций
-            Paper[] papers = { new Paper("Механика", new Person("Иван", "Иванов", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)), new Paper("Термодинамика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)) };
-            res.AddPapers(papers);
-            Person[] people = { new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new Person("Сидоров", "Степан", new DateTime(1980, 04, 15)), new Person("Михайлов", "Михаил", new DateTime(1990, 12, 13)) };
-            res.AddMembers(people);
+            Console.WriteLine((byte) (Enum2.B | Enum2.D));
+            //ResearchTeam res = new ResearchTeam();
+            //res.Number = 400;
+            ////Добавление участников и публикаций
+            //Paper[] papers = { new Paper("Механика", new Person("Иван", "Иванов", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)), new Paper("Термодинамика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)) };
+            //res.AddPapers(papers);
+            //Person[] people = { new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new Person("Сидоров", "Степан", new DateTime(1980, 04, 15)), new Person("Михайлов", "Михаил", new DateTime(1990, 12, 13)) };
+            //res.AddMembers(people);
 
             //Console.WriteLine("---------------------Публикации до сортировки---------------------");
             //foreach (Paper item in res.Publications)
@@ -45,20 +52,20 @@ namespace first_lab
             //    Console.WriteLine(item);
             //}
 
-            ResearchTeam res2 = new ResearchTeam();
-            res2.Organization = "МГУ";
-            //Добавление участников и публикаций
-            Paper[] papers_2 = { new Paper("Информатика", new Person("Иван", "Иванов", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)), new Paper("Физика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)) };
-            res2.AddPapers(papers);
-            Person[] people_2 = { new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new Person("Сидоров", "Степан", new DateTime(1980, 04, 15)), new Person("Михайлов", "Михаил", new DateTime(1990, 12, 13)) };
-            res2.AddMembers(people);
-            res2.Number = 500;
-            res2.Theme = "Машинное обучение";
-            res2.Time = TimeFrame.TwoYears;
+            //ResearchTeam res2 = new ResearchTeam();
+            //res2.Organization = "МГУ";
+            ////Добавление участников и публикаций
+            //Paper[] papers_2 = { new Paper("Информатика", new Person("Иван", "Иванов", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)), new Paper("Физика", new Person("Петров", "Петр", new DateTime(2021, 08, 22)), new DateTime(2021, 08, 22)) };
+            //res2.AddPapers(papers);
+            //Person[] people_2 = { new Person("Иван", "Иванов", new DateTime(1970, 03, 13)), new Person("Сидоров", "Степан", new DateTime(1980, 04, 15)), new Person("Михайлов", "Михаил", new DateTime(1990, 12, 13)) };
+            //res2.AddMembers(people);
+            //res2.Number = 500;
+            //res2.Theme = "Машинное обучение";
+            //res2.Time = TimeFrame.TwoYears;
 
-            ResearchTeamCollection<string> collection = new ResearchTeamCollection<string>(ResearchTeamCollection<string>.GenerateKey);
-            collection.AddDefaults(res);
-            collection.AddResearchTeams(res2);
+            //ResearchTeamCollection<string> collection = new ResearchTeamCollection<string>(ResearchTeamCollection<string>.GenerateKey);
+            //collection.AddDefaults(res);
+            //collection.AddResearchTeams(res2);
             //Console.WriteLine(collection);
 
 
@@ -70,59 +77,18 @@ namespace first_lab
             //    Console.WriteLine(item.ToShortString());
             //}
 
+            ////Группировка по продолжительности исследований
 
-
-            //Сортировка по номеру регистрации
-
-            //Console.WriteLine(collection.ToShortString());
-            //Console.WriteLine("--------------------------После сортировки---------------------------------");
-            //collection.SortByTeam();
-            //Console.WriteLine(collection.ToShortString());
-
-            //Сортировка по теме исследований
-
-            //Console.WriteLine(collection.ToShortString());
-            //Console.WriteLine("--------------------------После сортировки---------------------------------");
-            //collection.SortByTheme();
-            //Console.WriteLine(collection.ToShortString());
-
-            //Сортировка по количеству публикаций
-
-            //res.AddPapers(new Paper("Анализ данных", new Person("Иван", "Пупкин", new DateTime(2020, 08, 22)), new DateTime(2024, 08, 22)));
-            //Console.WriteLine(collection.ToString());
-            //Console.WriteLine("--------------------------После сортировки---------------------------------");
-            //collection.SortByPublications();
-            //Console.WriteLine(collection.ToString());
-
-            //Вывод минимального номера регистрации
-
-            //Console.WriteLine(collection.MinNumber);
-
-            //Вывод исследовательский групп с продолжительностью исследований два года
-
-            //foreach (ResearchTeam item in collection.researchTeams)
+            //foreach (var item in collection.NGroup())
             //{
-            //    Console.WriteLine(item.ToShortString());
+            //    Console.WriteLine($"Время исследований в данной группе равно {item.Key}");
+            //    Console.WriteLine("-------------------------------------------------------");
+            //    foreach (ResearchTeam j in item.ToDictionary(x => x.Key, x => x.Value).Values)
+            //    {
+            //        Console.WriteLine(j.ToShortString());
+            //    }
+
             //}
-
-            //Вывод исследовательский групп с заданным количество участников
-            //foreach (ResearchTeam item in collection.CountPeople(3)
-            //{
-            //        Console.WriteLine(item.ToShortString());
-            //}
-
-            //Группировка по продолжительности исследований
-
-            foreach (IGrouping<int, ResearchTeam> item in collection.NGroup())
-            {
-                Console.WriteLine($"Количество публикаций в данной группе равно {item.Key}");
-                Console.WriteLine("-------------------------------------------------------");
-                foreach (ResearchTeam j in item)
-                {
-                    Console.WriteLine(j.ToShortString());
-                }
-
-            }
 
             //int n;
             //Console.WriteLine("Введите количество элементов");

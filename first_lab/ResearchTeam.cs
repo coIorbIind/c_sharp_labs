@@ -9,14 +9,14 @@ namespace first_lab
 {
     enum TimeFrame { Year, TwoYears, Long };
 
-    class ResearchTeam : Team, INameAndCopy, IEnumerable,IComparer<ResearchTeam>
+    class ResearchTeam : Team, INameAndCopy, IEnumerable, IComparer<ResearchTeam>
     {
         string theme;
         TimeFrame time;
         List<Person> people;
         List<Paper> publications;
 
-        public ResearchTeam(string theme_value, string organization_value, int number_value, TimeFrame time_value):base(organization_value, number_value) /// конструктор с параметрами
+        public ResearchTeam(string theme_value, string organization_value, int number_value, TimeFrame time_value) : base(organization_value, number_value) /// конструктор с параметрами
         {
             theme = theme_value;
             time = time_value;
@@ -197,7 +197,7 @@ namespace first_lab
             foreach (Person item in People)
             {
                 if (!new_arr.Contains(item))
-                    {
+                {
                     yield return item;
                 }
             }

@@ -15,7 +15,7 @@ namespace first_lab
             number = number_value;
         } // конструктор с параметрами
 
-        public Team() : this("МИЭТ", 111) 
+        public Team() : this("МИЭТ", 111)
         {
         } // конструктор без параметров
         public string Organization
@@ -40,17 +40,17 @@ namespace first_lab
 
             set
             {
-                    if (value <= 0)
-                    {
-                        throw new ArgumentException("Номер должен быть положительным числом");
-                    }
-                    else
-                        number = value;
-                
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Номер должен быть положительным числом");
+                }
+                else
+                    number = value;
+
             }
         } //свойство номер организации
 
-        string INameAndCopy.Name 
+        string INameAndCopy.Name
         {
             get
             {
@@ -103,7 +103,7 @@ namespace first_lab
 
         public int CompareTo(object obj)
         {
-            return Number - ((Team)obj).Number ;
+            return Number - ((Team)obj).Number;
         }
     }
 }
