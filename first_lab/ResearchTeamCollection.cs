@@ -9,7 +9,6 @@ namespace first_lab
     class ResearchTeamCollection<TKey>
     {
 
-
         //private static readonly Dictionary<Type, ResearchTeamCollection<Type>>
 
         KeySelector<TKey> my_key;
@@ -25,7 +24,6 @@ namespace first_lab
         {
             return rs.Organization;
         }
-
 
         public void AddDefaults(params ResearchTeam[] teams)
         {
