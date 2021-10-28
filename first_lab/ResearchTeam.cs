@@ -4,17 +4,22 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace first_lab
 {
+    enum Revision { Remove, Replace, Property, Add };
     enum TimeFrame { Year, TwoYears, Long };
 
-    class ResearchTeam : Team, INameAndCopy, IEnumerable, IComparer<ResearchTeam>
+    class ResearchTeam : Team, INameAndCopy, IEnumerable, IComparer<ResearchTeam>, System.ComponentModel.INotifyPropertyChanged
     {
         string theme;
         TimeFrame time;
         List<Person> people;
         List<Paper> publications;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ResearchTeam(string theme_value, string organization_value, int number_value, TimeFrame time_value) : base(organization_value, number_value) /// конструктор с параметрами
         {
@@ -52,6 +57,7 @@ namespace first_lab
             set
             {
                 theme = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Theme"));
             }
         } //свойство тема
 
@@ -65,6 +71,7 @@ namespace first_lab
             set
             {
                 time = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Time"));
             }
         } //свойство дата начала исследований
 
