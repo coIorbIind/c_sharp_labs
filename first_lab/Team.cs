@@ -4,6 +4,7 @@ using System.Text;
 
 namespace first_lab
 {
+    [Serializable]
     class Team : INameAndCopy, IComparable
     {
         protected string organization;

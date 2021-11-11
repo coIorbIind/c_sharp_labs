@@ -4,6 +4,7 @@ using System.Text;
 
 namespace first_lab
 {
+    [Serializable]
     class Person : INameAndCopy
     {
         string name;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace first_lab
 {
-
+    [Serializable]
     class Paper : INameAndCopy, IComparable, IComparer<Paper>
     {
         public string Name { get; set; } // свойство название

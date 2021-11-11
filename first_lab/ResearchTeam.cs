@@ -6,12 +6,16 @@ using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace first_lab
 {
     enum Revision { Remove, Replace, Property, Add };
     enum TimeFrame { Year, TwoYears, Long };
 
+    [Serializable]
     class ResearchTeam : Team, INameAndCopy, IEnumerable, IComparer<ResearchTeam>, System.ComponentModel.INotifyPropertyChanged
     {
         string theme;
@@ -35,17 +39,164 @@ namespace first_lab
 
         public object DeepCopy()
         {
-            ResearchTeam other = new ResearchTeam(Theme, Organization, Number, Time);
-            foreach (Paper item in this.Publications)
+            MemoryStream stream = new MemoryStream();
+            try
             {
-                other.Publications.Add((Paper)item.DeepCopy());
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(stream, this);
+                stream.Position = 0;
+                return formatter.Deserialize(stream);
             }
-            foreach (Person item in this.People)
+            catch
             {
-                other.People.Add((Person)item.DeepCopy());
+                throw new Exception("Ошибка при сериализации");
             }
-            return other;
+            finally
+            {
+                stream?.Close();
+            }
         } // копия объекта класса ResearchTeam
+
+        public bool Save(string filename)
+        {
+            Stream SaveFileStream = null;
+            try
+            {
+                SaveFileStream = File.Create(filename);
+                BinaryFormatter serializer = new BinaryFormatter();
+                serializer.Serialize(SaveFileStream, this);
+                SaveFileStream.Close();
+                return true;
+            }
+            catch
+            {
+                Console.WriteLine("Возникли проблемы при записи объекта");
+                SaveFileStream?.Close();
+                return false;
+            }
+            finally
+            {
+                SaveFileStream?.Close();
+            }
+        }//сохранение объекта в файл
+
+        public bool Load(string filename)
+        {
+            if (File.Exists(filename))
+            {
+                Stream openFileStream = null;
+                try
+                {
+                    ResearchTeam obj;
+                    openFileStream = File.OpenRead(filename);
+                    Console.WriteLine("Reading saved file");
+                    BinaryFormatter deserializer = new BinaryFormatter();
+                    obj = (ResearchTeam)deserializer.Deserialize(openFileStream);
+                    openFileStream.Close();
+                    OurTeam = (Team)obj.OurTeam.DeepCopy();
+                    people = new List<Person>(obj.people);
+                    publications = new List<Paper>(obj.publications);
+                    Theme = obj.Theme;
+                    Time = obj.Time;
+                    return true;
+                }
+                catch
+                {
+                    Console.WriteLine("Возникли проблемы при записи объекта");
+                    openFileStream?.Close();
+                    return false;
+                }
+                finally
+                {
+                    openFileStream?.Close();
+                }
+            }
+            return false;
+        } //чтение объекта из файла
+
+        public static bool Save(string filename, ResearchTeam obj) //статический метод для сохранения объекта
+        {   
+            Stream SaveFileStream = null;
+            try
+            {
+                SaveFileStream = File.Create(filename);
+                BinaryFormatter serializer = new BinaryFormatter();
+                serializer.Serialize(SaveFileStream, obj);
+                SaveFileStream.Close();
+                return true;
+            }
+            catch
+            {
+                Console.WriteLine("Возникли проблемы при записи объекта");
+                SaveFileStream?.Close();
+                return false;
+            }
+        }
+
+        public static bool Load(string filename, ref ResearchTeam obj)
+        {
+            Stream openFileStream = null;
+            try
+            {
+                if (File.Exists(filename))
+                {
+                    Console.WriteLine("Reading saved file");
+                    openFileStream = File.OpenRead(filename);
+                    BinaryFormatter deserializer = new BinaryFormatter();
+                    obj = (ResearchTeam)deserializer.Deserialize(openFileStream);
+                    openFileStream.Close();
+                }
+                return true;
+            }
+            catch
+            {
+                Console.WriteLine("Возникли проблемы при чтении объекта");
+                openFileStream?.Close();
+                return false;
+            }
+        } //чтение объекта из файла
+
+        public bool AddFromConsole()
+        {
+            Console.WriteLine("Введите информацию о статье для добавления её в список публикаций.\nФормат входных данных\n" +
+                "Название статьи $ Имя автора $ Фамилия автора $ Дата его рождения в формате dd.mm.year $ Дата публикации в формате dd.mm.year\n" +
+                "Где $ - один из разделителей # , - ! $ ? /");
+            string[] input_data = Console.ReadLine().Split('#', '-', '!', '$', '?', '/', ',');
+            if (input_data.Length != 5)
+            {
+                Console.WriteLine("Неверное количество аргументов");
+                return false;
+            }
+            else
+            {
+                try
+                {
+                    Paper p = new Paper();
+                    p.Name = input_data[0];
+                    p.Person.Surname = input_data[1];
+                    p.Person.Name = input_data[2];
+                    List<int> birth = new List<int>();
+                    foreach(string item in input_data[3].Split('.'))
+                    {
+                        birth.Add(int.Parse(item));
+                    }
+                    p.Person.Date = new DateTime(birth[2], birth[1], birth[0]);
+                    List<int> publishing = new List<int>();
+                    foreach (string item in input_data[4].Split('.'))
+                    {
+                        publishing.Add(int.Parse(item));
+                    }
+                    p.Date = new DateTime(publishing[2], publishing[1], publishing[0]);
+                    this.AddPapers(p);
+                    return true;
+                }
+                catch
+                {
+                    Console.WriteLine("Некорректное значение одного или нескольких аргументов");
+                    return false;
+                }
+            }
+        }
 
         public string Theme
         {
